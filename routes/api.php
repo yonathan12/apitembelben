@@ -18,8 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('place', 'PlaceController@index');
-Route::get('place/{id}', 'PlaceController@show');
-Route::post('place', 'PlaceController@create');
-Route::put('place/{id}', 'PlaceController@update');
-Route::delete('place/{id}', 'PlaceController@destroy');
+Route::get('place', 'Api\PlaceController@index');
+Route::get('place/{id}', 'Api\PlaceController@show');
+Route::post('place', 'Api\PlaceController@create');
+Route::put('place/{id}', 'Api\PlaceController@update');
+Route::delete('place/{id}', 'Api\PlaceController@destroy');
+
+Route::get('balance/{id}', 'Api\BalanceController@show');
+Route::put('balance/{id}', 'Api\BalanceController@update');
+
+Route::post('transaction', 'Api\TransactionController@create');

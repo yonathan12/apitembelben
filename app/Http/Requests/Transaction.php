@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexPlace extends FormRequest
+class Transaction extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class IndexPlace extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,16 +24,18 @@ class IndexPlace extends FormRequest
     public function rules()
     {
         return [
-            'latitude' => 'required',
-            'longitude' => 'required',
+            'from_users_id' => 'required',
+            'to_users_id' => 'required',
+            'balance' => 'required'
         ];
     }
 
     public function messages()
     {
         return [
-            'latitude.required' => 'Latitude Wajib Diisi',
-            'longitude.required'  => 'Longitude Wajib Diisi',
+            'from_users_id.required' => 'User ID Pengirim Tidak Boleh Kosong',
+            'to_users_id.required' => 'User ID Penerima Tidak Boleh Kosong',
+            'balance.required' => 'Saldo Tidak Boleh Kosong',
         ];
     }
 }

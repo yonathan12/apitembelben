@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBalancesTable extends Migration
+class CreateTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateBalancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('balances', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('users_id');
-            $table->float('balance', 16,2);
+            $table->integer('from_users_id');
+            $table->integer('to_users_id');
+            $table->float('in_balance', 16,2);
+            $table->float('out_balance', 16,2);
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateBalancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('balances');
+        Schema::dropIfExists('transactions');
     }
 }
