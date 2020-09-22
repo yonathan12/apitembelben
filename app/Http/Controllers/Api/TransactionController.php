@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Balance;
 use App\Transaction;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Transaction as RequestsTransaction;
 
-class TransactionController extends Controller
+class TransactionController extends BaseController
 {
     public function index()
     {

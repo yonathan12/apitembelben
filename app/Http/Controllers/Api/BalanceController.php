@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Balance;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Balance as RequestsBalance;
 
-class BalanceController extends Controller
+class BalanceController extends BaseController
 {
     public function index()
     {
@@ -48,6 +47,7 @@ class BalanceController extends Controller
         $balance->balance = $balance->balance + (float) $request->balance;
         $balance->save();
 
+        
         return response([
             'status' => 'success',
             'message' => 'Saldo Berhasil Ditambah',

@@ -14,17 +14,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::group(['middleware' => 'api','prefix' => 'auth'], function ($router) {
+
+    Route::post('register', 'Api\UserController@register');
+    Route::post('login', 'Api\UserController@login');
+    Route::post('logout', 'Api\UserController@logout');
+    // Route::post('refresh', 'JWTAuthController@refresh');
+
 });
 
-Route::get('place', 'Api\PlaceController@index');
-Route::get('place/{id}', 'Api\PlaceController@show');
-Route::post('place', 'Api\PlaceController@create');
-Route::put('place/{id}', 'Api\PlaceController@update');
-Route::delete('place/{id}', 'Api\PlaceController@destroy');
+$router->group(
+    ['middleware' => 'jwt.verify'],
+    function () use ($router) {
 
-Route::get('balance/{id}', 'Api\BalanceController@show');
-Route::put('balance/{id}', 'Api\BalanceController@update');
-
-Route::post('transaction', 'Api\TransactionController@create');
+        Route::get('place', 'Api\PlaceController@index');
+        Route::get('place/{id}', 'Api\PlaceController@show');
+        Route::post('place', 'Api\PlaceController@create');
+        Route::put('place/{id}', 'Api\PlaceController@update');
+        Route::delete('place/{id}', 'Api\PlaceController@destroy');
+        
+        Route::get('balance/{id}', 'Api\BalanceController@show');
+        Route::put('balance/{id}', 'Api\BalanceController@update');
+        
+        Route::post('transaction', 'Api\TransactionController@create');
+    });
+    
